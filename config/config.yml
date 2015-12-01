@@ -1,0 +1,89 @@
+#all time/duration based options are in seconds
+default: &default
+  name: Default Test
+  base_url: http://www.google.com
+  driver: :selenium
+  selenium:
+    client_timeout: 300
+    retry_count: 3
+  output: &default_output
+    make_video: true
+    video_only_on_error: false
+    take_screenshot: true
+    screenshot_only_on_error: false
+    #embed screenshot link in html reports
+    embed_screenshot_link: false
+    #after each scenario, wait this number of seconds
+    #so the video has some padding at the end
+    video_end_wait_time: 5
+    attach_error_screenshot_to_email: false
+  options: &default_options
+    #after each step, before any screenshots are taken, wait
+    #for jQuery to finish all
+    wait_for_jquery_after_each_step: 10
+    fail_if_jquery_doesnt_finish: false
+    wait_time_after_each_step: 0
+    load_custom_hosts_file: true
+    #relative to cucumber directory
+    custom_hosts_file: config/hosts
+    webdriver: &default_options_webdriver
+      client: :default # :persistent | :curb
+      use_hub: false
+      hub_url: http://127.0.0.1:4444/wd/hub
+  browser: &default_browser
+    type: :firefox
+    width: 1280
+    height: 1024
+    wait_time: 120
+    selector: :css
+    firefox: &default_browser_firefox
+      network_traffic_log: false
+      #user_agent_string: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0 cucumber/1.0"
+    chrome: &default_browser_chrome
+      #user_agent_string: "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.97 Safari/537.11 cucumber/1.0"
+    internet_explorer: &default_browser_internet_explorer
+      #user_agent_string: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:17.0) Gecko/20100101 Firefox/17.0 cucumber/1.0"
+  testsystem: &default_testsystem
+    theme: :fashion # :multi | :furniture | :spinbasket
+    env: :staging # :live | :trunk
+  urls: &default_urls
+    google: http://www.google.com
+### BEGIN for HTTP auth fix (auto active if login given in url!)
+### <urls_key> is the key (e.g. 'google') from a specified url in this section
+#    <urls_key>!https_auth_first: true #(default: true if url starts with 'https', false otherwise)
+#    <urls_key>!no_https_auth: true    #(default: false)
+#    <urls_key>!no_http_auth: true     #(default: false)
+### END for HTTP auth fix if needed
+  mail: &default_mail
+    fetch: &default_mail_fetch
+      server_url: imap.gmail.com
+      server_port: 993
+      account_name: xxxxxxxxxxxx@example.com
+      account_password: YOUR_PASSWORD_HERE
+
+todomvc.common: &todomvc_common
+  <<: *default
+  output:
+    <<: *default_output
+    make_video: false
+    take_screenshot: true
+    embed_screenshot_link: true
+  browser:
+    <<: *default_browser
+    type: :firefox
+    network_traffic_log: true
+    wait_time: 10
+    search_timeout: 480
+  mobile: &mobile
+    browser:
+      <<: *default_browser
+      firefox:
+        network_traffic_log: false
+        user_agent_string: "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19"
+      width: 370
+      height: 610
+      wait_time: 10
+
+todomvc.com:
+  <<: *todomvc_common
+  base_url: http://todomvc.com/examples/react/#/

@@ -1,0 +1,13 @@
+#COMMON OPTIONS
+#You can override output format on command line.
+#The Fuubar formatter will display a progress bar.
+#<% options = "--format 'Cucumber::Formatter::Fuubar' -t ~@not_ready -r features/support" %>
+<% options = "--format 'Timestamped::PrettyFormatter' -t ~@not_ready -t ~@wip -r features/support" %>
+
+#PROFILES
+#Configuration for profiles is in config.yml.
+default:                              -r ./profiles/default/  <%= options %> CUCUMBER_ENV=default                      ./profiles/default/             -t ~no_default -t ~@not_default
+
+todomvc.com:                          -r ./profiles/tests     <%= options %> CUCUMBER_ENV=todomvc.com                  ./profiles/tests/features       -t @live
+
+<%= File.exists?("./config/cucumber.local.yml") ? ERB.new(File.read("./config/cucumber.local.yml")).result : "" %>
