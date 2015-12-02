@@ -7,5 +7,5 @@ Feature: The user can successfully add a new todo.
   @live
   Scenario: The user can add a new task
 
-  When add a new task
+  When I add a new task
   Then I should see the task on the list

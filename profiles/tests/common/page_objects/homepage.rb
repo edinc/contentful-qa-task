@@ -25,6 +25,14 @@ class Homepage < AbstractPageObject
     page.should have_css ".completed"
   end
 
+  def remove_task
+    find('.destroy').click
+  end
+
+  def verify_task
+    page.should_not have_css ".completed"
+  end
+
 end
 
 module HomepagePageModule
