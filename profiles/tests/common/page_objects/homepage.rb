@@ -33,6 +33,10 @@ class Homepage < AbstractPageObject
     page.should_not have_css ".completed"
   end
 
+  def clear_completed_tasks
+    find('.clear-completed').click
+  end
+
 end
 
 module HomepagePageModule

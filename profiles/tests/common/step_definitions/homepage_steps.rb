@@ -15,6 +15,10 @@ When(/^I remove a task$/) do
   homepage.remove_task
 end
 
+When(/^I clear all completed tasks$/) do
+  homepage.clear_completed_tasks
+end
+
 ######## THEN STEPS ########
 
 Then(/^I should see the task on the list$/) do
@@ -26,5 +30,9 @@ Then(/^I should see the task as completed$/) do
 end
 
 Then(/^I should not see that task anymore$/) do
+  homepage.verify_task
+end
+
+Then(/^I should not see completed tasks$/) do
   homepage.verify_task
 end
