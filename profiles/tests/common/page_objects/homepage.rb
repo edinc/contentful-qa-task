@@ -8,8 +8,21 @@ class Homepage < AbstractPageObject
     find(".new-todo").set("\n")
   end
 
+  def add_another_task
+    find('.new-todo').set("Task2")
+    find(".new-todo").set("\n")
+  end
+
   def verify_task
     page.should have_css "[type='checkbox']"
+  end
+
+  def complete_task
+    first('.toggle').click
+  end
+
+  def verify_completed_task
+    page.should have_css ".completed"
   end
 
 end
