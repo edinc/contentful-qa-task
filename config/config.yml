@@ -84,6 +84,6 @@ todomvc.common: &todomvc_common
       height: 610
       wait_time: 10
 
-todomvc.com:
+todomvc.live.com:
   <<: *todomvc_common
-  base_url: http://todomvc.com/examples/react/#/
+  base_url: http://todomvc.com/examples/react/#
